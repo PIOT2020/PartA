@@ -3,7 +3,7 @@
 Environment Setup
 
 Google Cloud SDK
-    Follow Week 7 Tutorial PDF
+   	Follow Week 7 Tutorial PDF
     Not sure but may need to add Raspberry Pi's global ip address to the Google Cloud Project's authorized list
 
  Create and Access Virtual Environment 

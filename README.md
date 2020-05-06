@@ -18,6 +18,8 @@ pip3 install virtualenv
 
 source venv/bin/activate
 
+*Install any necessary dependencies
+
 pip3 install flask 
 
 pip3 install requests

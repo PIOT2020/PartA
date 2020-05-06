@@ -6,6 +6,8 @@
 
 * Follow Week 7 Tutorial PDF
 * Not sure but may need to add Raspberry Pi's global ip address to the Google Cloud Project's authorized list
+* Run "curl icanhazip.com"
+* Add IP address output to Google Cloud Project > SQL > Connections > Public IP
 
 <h3> Create and Access Virtual Environment</h3>
  

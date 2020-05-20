@@ -6,6 +6,7 @@ import MySQLdb
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
 
+
 @api.route('/api/cancelBooking',methods=['PUT'])
 def cancel():
     prams = [
@@ -62,21 +63,17 @@ def login():
 
     return "No Such User"
 
-
 @api.route('/api/availableCars',methods=['GET'])
 def getAvailableCars():
+    return str(db.availableVehicles())
+
+
+@api.route('/api/carDetails',methods=['GET'])
+def getCar():
     prams = [
-        request.args.get('username'),
-        request.args.get('password')
+        request.args.get('carid')
     ] 
-    if None in prams:
-        return "Missing Parameters"
-
-    if db.getUser(prams):
-        return str(db.availableVehicles())
-    else:
-        return "Not Authenticated"
-
+    return str(db.getVehicle())
 
 @api.route('/api/book',methods=['POST'])
 def bookVehicle():

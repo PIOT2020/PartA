@@ -51,6 +51,11 @@ class DatabaseUtils:
             cursor.execute("select * from cars where available = 1")
             return cursor.fetchall()
 
+    def getVehicle(self):
+        with self.connection.cursor() as cursor:
+            cursor.execute("select * from cars where carid = %s",prams[0])
+            return cursor.fetchall()
+
     def bookVehicle(self,prams):
         with self.connection.cursor() as cursor:
             cursor.execute("Update cars set available = 0 where carid = %s",prams[3])

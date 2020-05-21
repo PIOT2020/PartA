@@ -11,12 +11,13 @@
 
 <h3> Create and Access Virtual Environment</h3>
  
-* *Week 8 Tutorial PDF
 * pip3 install virtualenv
 * *clone Part A Repo then cd /PartA
+* python3 -m venv venv
 * source venv/bin/activate
-* *Install any necessary dependencies
 * pip3 install flask 
 * pip3 install requests
+* pip3 install mysqlclient
+* pip3 install mariadb
 * export FLASK_APP=main.py
 * flask run --host 192.168.0.1 #Change IP address to your Pi's IP address

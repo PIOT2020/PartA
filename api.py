@@ -12,8 +12,7 @@ def cancel():
     prams = [
         request.args.get('username'),
         request.args.get('password'),
-        request.args.get('bookingid'),
-        request.args.get('carid')
+        request.args.get('bookingid')
     ] 
     if None in prams:
         return "Missing Parameters"

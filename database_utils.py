@@ -1,4 +1,5 @@
 import MySQLdb
+import MySQLdb.cursors
 
 class DatabaseUtils:
     HOST = "35.244.78.82"
@@ -47,12 +48,12 @@ class DatabaseUtils:
         return cursor.rowcount == 1
 
     def availableVehicles(self):
-        with self.connection.cursor() as cursor:
+        with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
             cursor.execute("select * from cars where available = 1")
             return cursor.fetchall()
 
     def getVehicle(self):
-        with self.connection.cursor() as cursor:
+        with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
             cursor.execute("select * from cars where carid = %s",prams[0])
             return cursor.fetchall()
 
@@ -66,7 +67,7 @@ class DatabaseUtils:
         return "Successful"
 
     def bookingHistory(self,prams):
-        with self.connection.cursor() as cursor:
+        with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
             cursor.execute("select * from bookings where userid = %s",prams)
             return cursor.fetchall()
 

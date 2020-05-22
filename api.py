@@ -30,7 +30,16 @@ def history():
         request.args.get('password')
     ]
     if db.getUser(prams):
-        return str(db.bookingHistory(db.getUserID(prams)))
+        print(type(db.bookingHistory(db.getUserID(prams))))
+
+        results = db.bookingHistory(db.getUserID(prams))
+
+        for x in results:
+            temp = x.get("date")
+            print(str(temp))
+            x["date"] = str(temp)
+
+        return str(results)
     else:
         return "Not Authenticated"
     

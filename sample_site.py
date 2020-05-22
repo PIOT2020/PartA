@@ -22,7 +22,7 @@ def siteregister():
 def sitelogin():
     response = requests.get((url+"api/login"), params={
         'username' : "seth", 
-        'password' : "testing", 
+        'password' : "testing"
     })
 
     return response.text

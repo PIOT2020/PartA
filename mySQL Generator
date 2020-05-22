@@ -14,7 +14,7 @@ def createDatabase(self):
                 )""")
             cursor.execute("""
                 CREATE TABLE if not exists cars (
-                    carid     bigint NOT NULL ,
+                    carid     bigint NOT NULL AUTO_INCREMENT ,
                     make      varchar(45) NOT NULL ,
                     bodytype  varchar(45) NOT NULL ,
                     colour    varchar(45) NOT NULL ,

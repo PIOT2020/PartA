@@ -28,8 +28,12 @@ def history():
     prams = [
         request.args.get('username'),
         request.args.get('password')
-    ] 
-    return str(db.bookingHistory(db.getUserID(prams)))
+    ]
+    if db.getUser(prams):
+        return str(db.bookingHistory(db.getUserID(prams)))
+    else:
+        return "Not Authenticated"
+    
 
 @api.route('/api/register',methods=['POST'])
 def register():

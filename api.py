@@ -2,6 +2,11 @@ from flask import Flask,Blueprint,request
 from datetime import date
 from database_utils import DatabaseUtils
 import MySQLdb
+from passlib.hash import bcrypt
+
+def encrypt(password):
+    hashedPassword = bcrypt.hash(password)
+    return hashedPassword
 
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
@@ -10,10 +15,11 @@ db = DatabaseUtils()
 def findBooking():
     prams = [
         request.args.get('username'),
-        request.args.get('password'),
+        encrypt(request.args.get('password')),
         "placeholderuserid",
         request.args.get('carid')
     ]
+
     if None in prams:
         return "Missing Parameters"
 
@@ -27,7 +33,7 @@ def findBooking():
 def findBooking2():
     prams = [
         request.args.get('username'),
-        request.args.get('password'),
+        encrypt(request.args.get('password')),
         "placeholderuserid",
         request.args.get('carid')
     ]
@@ -44,7 +50,7 @@ def findBooking2():
 def cancel():
     prams = [
         request.args.get('username'),
-        request.args.get('password'),
+        encrypt(request.args.get('password')),
         request.args.get('bookingid')
     ]
     print(request.args.get('bookingid'))
@@ -60,7 +66,7 @@ def cancel():
 def history():
     prams = [
         request.args.get('username'),
-        request.args.get('password')
+        encrypt(request.args.get('password'))
     ]
     if db.getUser(prams):
         print(type(db.bookingHistory(db.getUserID(prams))))
@@ -82,7 +88,7 @@ def register():
     prams = [
         request.args.get('type'),
         request.args.get('username'),
-        request.args.get('password'),
+        encrypt(request.args.get('password')),
         request.args.get('fistname'),
         request.args.get('lastname'),
         request.args.get('email')
@@ -99,7 +105,7 @@ def register():
 def login():
     prams = [
         request.args.get('username'),
-        request.args.get('password')
+        encrypt(request.args.get('password'))
     ] 
     if None in prams:
         return "Missing Parameters"
@@ -125,7 +131,7 @@ def getCar():
 def bookVehicle():
     prams = [
         request.args.get('username'),
-        request.args.get('password'),
+        encrypt(request.args.get('password')),
         "placeholder",
         request.args.get('carid')
     ] 

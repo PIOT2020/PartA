@@ -64,7 +64,7 @@ def cancel():
     response = requests.put((url+"api/cancelBooking"), params={
         'username' : "seth", 
         'password' : "testing", 
-        'bookingid' : "1", 
+        'bookingid' : "10", 
         'carid' : "1"
     })
     return response.text

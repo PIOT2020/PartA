@@ -13,7 +13,8 @@ def cancel():
         request.args.get('username'),
         request.args.get('password'),
         request.args.get('bookingid')
-    ] 
+    ]
+    print(request.args.get('bookingid'))
     if None in prams:
         return "Missing Parameters"
 

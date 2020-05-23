@@ -60,7 +60,7 @@ class DatabaseUtils:
 
     def bookVehicle(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("Update cars set available = 0 where carid = %s",prams[3])
+            cursor.execute("Update cars set available = 0 where carid = %s",[prams[3]])
             cursor.execute("insert into bookings (userid,carid,status,date) values (%s,%s,%s,%s)", 
             (prams[2],prams[3],"active",date.today()))
             self.connection.commit()
@@ -69,15 +69,15 @@ class DatabaseUtils:
 
     def bookingHistory(self,prams):
         with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
-            cursor.execute("select * from bookings where userid = %s",prams)
+            cursor.execute("select * from bookings where userid = %s",[prams])
             return cursor.fetchall()
 
     def cancelBooking(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("select carid from bookings where bookingid = %s",prams[2])
+            cursor.execute("select carid from bookings where bookingid = %s",[prams[2]])
             carid = str(cursor.fetchone()[0])
-            cursor.execute("Update cars set available = 1 where carid = %s", carid)
-            cursor.execute("Update bookings set status = 'cancelled' where bookingid = %s",prams[2])
+            cursor.execute("Update cars set available = 1 where carid = %s", [carid])
+            cursor.execute("Update bookings set status = 'cancelled' where bookingid = %s",[prams[2]])
             self.connection.commit()
         #To Do: Validation Check
         return "Successful"

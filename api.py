@@ -6,6 +6,22 @@ import MySQLdb
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
 
+@api.route('/api/findBooking',methods=['GET'])
+def findBooking():
+    prams = [
+        request.args.get('username'),
+        request.args.get('password'),
+        "placeholderuserid",
+        request.args.get('carid')
+    ]
+    if None in prams:
+        return "Missing Parameters"
+
+    if db.getUser(prams):
+        prams[2] = db.getUserID(prams)
+        return str(db.findBooking(prams))
+    else:
+        return "Not Authenticated"
 
 @api.route('/api/cancelBooking',methods=['PUT'])
 def cancel():

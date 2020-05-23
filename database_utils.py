@@ -23,6 +23,12 @@ class DatabaseUtils:
     def __exit__(self, type, value, traceback):
         self.close()
 
+    #Add check if booking is open
+    def findBooking(self,prams):
+        with self.connection.cursor() as cursor:
+            cursor.execute("select count(*) from bookings where userid = %s && carid = %s", (prams[2],prams[3]))
+            return cursor.fetchone()[0] >= 1
+
     #Need to implement checking of taken username and email
     def registerUser(self,prams):
         with self.connection.cursor() as cursor:
@@ -41,6 +47,11 @@ class DatabaseUtils:
             cursor.execute("select userid from users where username = %s && password = %s", (prams[0],prams[1]))
             return str(cursor.fetchone()[0])
 
+    def getUserIDp(self,prams):
+        with self.connection.cursor() as cursor:
+            cursor.execute("select userid from users where username = %s", (prams[0]))
+            return str(cursor.fetchone()[0])
+
     def addVehicle(self,prams):
         with self.connection.cursor() as cursor:
             cursor.execute("insert into cars (make,bodytype,colour,seats,cost,available) values (%s,%s,%s,%s,%s,%s)", 
@@ -50,7 +61,7 @@ class DatabaseUtils:
 
     def availableVehicles(self):
         with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
-            cursor.execute("select * from cars where available = 1")
+            cursor.execute("select * from users")
             return cursor.fetchall()
 
     def getVehicle(self):

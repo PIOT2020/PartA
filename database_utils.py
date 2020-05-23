@@ -61,10 +61,10 @@ class DatabaseUtils:
 
     def availableVehicles(self):
         with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
-            cursor.execute("select * from users")
+            cursor.execute("select * from cars where available = 1")
             return cursor.fetchall()
 
-    def getVehicle(self):
+    def getVehicle(self,prams):
         with self.connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
             cursor.execute("select * from cars where carid = %s",prams[0])
             return cursor.fetchall()

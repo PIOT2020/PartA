@@ -47,7 +47,7 @@ class DatabaseUtils:
             cursor.execute("select userid from users where username = %s && password = %s", (prams[0],prams[1]))
             return str(cursor.fetchone()[0])
 
-    def getUserIDp(self,prams):
+    def getUserID2(self,prams):
         with self.connection.cursor() as cursor:
             cursor.execute("select userid from users where username = %s", (prams[0]))
             return str(cursor.fetchone()[0])

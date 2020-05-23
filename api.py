@@ -23,6 +23,23 @@ def findBooking():
     else:
         return "Not Authenticated"
 
+@api.route('/api/findBooking2',methods=['GET'])
+def findBooking2():
+    prams = [
+        request.args.get('username'),
+        request.args.get('password'),
+        "placeholderuserid",
+        request.args.get('carid')
+    ]
+    if None in prams:
+        return "Missing Parameters"
+
+    if db.getUser(prams):
+        prams[2] = db.getUserID2(prams)
+        return str(db.findBooking(prams))
+    else:
+        return "Not Authenticated"
+
 @api.route('/api/cancelBooking',methods=['PUT'])
 def cancel():
     prams = [

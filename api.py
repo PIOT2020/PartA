@@ -2,14 +2,35 @@ from flask import Flask,Blueprint,request
 from datetime import date
 from database_utils import DatabaseUtils
 import MySQLdb
-from passlib.hash import bcrypt
+from passlib.hash import sha256_crypt
 
 def encrypt(password):
-    hashedPassword = bcrypt.hash(password)
+    hashedPassword = sha256_crypt.using(salt="salting").hash(password)
+    print(hashedPassword)
+    hashedPassword = hashedPassword[:-4]
+    print(hashedPassword)
     return hashedPassword
 
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
+
+@api.route('/api/returnCar',methods=['GET'])
+def returnCar():
+    prams = [
+        request.args.get('username'),
+        encrypt(request.args.get('password')),
+        "placeholderuserid",
+        request.args.get('carid')
+    ]
+
+    if None in prams:
+        return "Missing Parameters"
+
+    if db.getUser(prams):
+        prams[2] = db.getUserID2(prams)
+        return str(db.returnCar(prams))
+    else:
+        return "Not Authenticated"
 
 @api.route('/api/findBooking',methods=['GET'])
 def findBooking():

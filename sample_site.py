@@ -20,10 +20,11 @@ def siteregister():
 
 @site.route('/login')
 def sitelogin():
-    response = requests.get((url+"api/login"), params={
+    param = {
         'username' : "seth", 
         'password' : "testing"
-    })
+    }
+    response = requests.get((url+"api/login"), params=param)
 
     return response.text
 

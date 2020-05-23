@@ -23,10 +23,18 @@ class DatabaseUtils:
     def __exit__(self, type, value, traceback):
         self.close()
 
+    def returnCar(self,prams):
+        with self.connection.cursor() as cursor:
+            cursor.execute("Update bookings set status = 'completed' where userid = %s && carid = %s && status = 'active'", ([prams[2]],[prams[3]]))
+            cursor.execute("Update cars set available = 1 where carid = %s", [prams[3]])
+            self.connection.commit()
+        #To Do: Validation Check
+        return True
+
     #Add check if booking is open
     def findBooking(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("select count(*) from bookings where userid = %s && carid = %s", (prams[2],prams[3]))
+            cursor.execute("select count(*) from bookings where userid = %s && carid = %s", ([prams[2]],[prams[3]]))
             return cursor.fetchone()[0] >= 1
 
     #Need to implement checking of taken username and email

@@ -62,8 +62,8 @@ class DatabaseUtils:
 
     def addVehicle(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("insert into cars (make,bodytype,colour,seats,cost,available) values (%s,%s,%s,%s,%s,%s)", 
-            (prams[0],prams[1],prams[2],prams[3],prams[4],prams[5]))
+            cursor.execute("insert into cars (make,bodytype,colour,seats,cost,available,latitude,longitude) values (%s,%s,%s,%s,%s,%s,%s,%s)", 
+            (prams[0],prams[1],prams[2],prams[3],prams[4],prams[5],prams[6],prams[7]))
             self.connection.commit()
         return cursor.rowcount == 1
 

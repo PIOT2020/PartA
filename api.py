@@ -138,7 +138,16 @@ def login():
 
 @api.route('/api/availableCars',methods=['GET'])
 def getAvailableCars():
-    return str(db.availableVehicles())
+    results = db.availableVehicles()
+
+    for x in results:
+        temp = x.get("latitude")
+        x["latitude"] = str(temp)
+
+        temp = x.get("longitude")
+        x["longitude"] = str(temp)
+
+    return str(results)
 
 
 @api.route('/api/carDetails',methods=['GET'])
@@ -187,7 +196,9 @@ def populateCarsTable():
         "Gray",
         5,
         20,
-        1
+        1,
+        -37.804815, 
+        144.955400
     ] 
     car2 = [
         "Toyota",
@@ -195,7 +206,9 @@ def populateCarsTable():
         "Black",
         5,
         40,
-        1
+        1,
+        -37.808189, 
+        144.956076
     ] 
     car3 = [
         "Ford",
@@ -203,7 +216,9 @@ def populateCarsTable():
         "White",
         7,
         80,
-        1
+        1,
+        -37.807485, 
+        144.948019
     ] 
 
     db.addVehicle(car1)

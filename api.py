@@ -66,7 +66,7 @@ def findBooking2():
     if None in prams:
         return "Missing Parameters"
 
-    if db.getUser(prams):
+    if db.getUser2(prams):
         prams[2] = db.getUserID2(prams)
         return str(db.findBooking(prams))
     else:

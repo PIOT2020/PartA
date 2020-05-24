@@ -23,6 +23,11 @@ class DatabaseUtils:
     def __exit__(self, type, value, traceback):
         self.close()
 
+    def checkBooking(self,prams):
+        with self.connection.cursor() as cursor:
+            cursor.execute("select count(*) from bookings where userid = %s && carid = %s && status = 'active'", ([prams[2]],[prams[3]]))
+            return cursor.fetchone()[0] >= 1
+
     def returnCar(self,prams):
         with self.connection.cursor() as cursor:
             cursor.execute("Update bookings set status = 'completed' where userid = %s && carid = %s && status = 'active'", ([prams[2]],[prams[3]]))
@@ -44,6 +49,11 @@ class DatabaseUtils:
             (prams[0],prams[1],prams[2],prams[3],prams[4],prams[5]))
             self.connection.commit()
         return cursor.rowcount == 1
+
+    def getUser2(self,prams):
+        with self.connection.cursor() as cursor:
+            cursor.execute("select count(*) from users where username = %s", ([prams[0]]))
+            return cursor.fetchone()[0] >= 1
     
     def getUser(self,prams):
         with self.connection.cursor() as cursor:
@@ -57,7 +67,7 @@ class DatabaseUtils:
 
     def getUserID2(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("select userid from users where username = %s", (prams[0]))
+            cursor.execute("select userid from users where username = %s", ([prams[0]]))
             return str(cursor.fetchone()[0])
 
     def addVehicle(self,prams):

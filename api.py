@@ -24,12 +24,17 @@ def returnCar():
     ]
 
     if None in prams:
+        print("Missing Parameters")
         return "Missing Parameters"
 
-    if db.getUser(prams):
+    if db.getUser2(prams):
         prams[2] = db.getUserID2(prams)
-        return str(db.returnCar(prams))
+        if db.checkBooking(prams):
+            return str(db.returnCar(prams))
+        else:
+            return "No Booking Found"
     else:
+        print("Not Authenticated")
         return "Not Authenticated"
 
 @api.route('/api/findBooking',methods=['GET'])

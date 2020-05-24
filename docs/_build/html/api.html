@@ -1,0 +1,176 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api module &#8212; API Documentation  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Sphinx" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-api">
+<span id="api-module"></span><h1>api module<a class="headerlink" href="#module-api" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="api.bookVehicle">
+<code class="descclassname">api.</code><code class="descname">bookVehicle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.bookVehicle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new row to the bookings table and updates the car thats has been booked to unavailable</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.cancel">
+<code class="descclassname">api.</code><code class="descname">cancel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the database when user cancels a booking. Booking attribute “status” 
+updated to cancelled and car attribute “available” is set to 1which means available</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.encrypt">
+<code class="descclassname">api.</code><code class="descname">encrypt</code><span class="sig-paren">(</span><em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#api.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for encrypting paswords before storing them to the database.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.findBooking">
+<code class="descclassname">api.</code><code class="descname">findBooking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.findBooking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used when agent pi authentication. Must verify username &amp; password then also verify if said user has booked the vehicle.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.findBooking2">
+<code class="descclassname">api.</code><code class="descname">findBooking2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.findBooking2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for agent pi authentication but with facial recognition.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.getAvailableCars">
+<code class="descclassname">api.</code><code class="descname">getAvailableCars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.getAvailableCars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all available vehicles. Can be used without authenticating</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.getCar">
+<code class="descclassname">api.</code><code class="descname">getCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.getCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the attributes of a specific car</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.history">
+<code class="descclassname">api.</code><code class="descname">history</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of bookings made by a specific user</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.login">
+<code class="descclassname">api.</code><code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if credentials sent are found in the database</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.populateCarsTable">
+<code class="descclassname">api.</code><code class="descname">populateCarsTable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.populateCarsTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>For Demo Purposes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.register">
+<code class="descclassname">api.</code><code class="descname">register</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a user to the database</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="api.returnCar">
+<code class="descclassname">api.</code><code class="descname">returnCar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#api.returnCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles requests for list of car details of a specific car.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">API Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sphinx</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">api module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Sphinx</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">Sphinx</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Angelo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -4,8 +4,9 @@ from database_utils import DatabaseUtils
 import MySQLdb
 from passlib.hash import sha256_crypt
 
-#Used for encrypting paswords before storing them to the database.
+
 def encrypt(password):
+    """Used for encrypting paswords before storing them to the database."""
     hashedPassword = sha256_crypt.using(salt="salting").hash(password)
     print(hashedPassword)
     hashedPassword = hashedPassword[:-4]
@@ -15,9 +16,10 @@ def encrypt(password):
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
 
-#Handles requests for list of car details of a specific car.
+
 @api.route('/api/returnCar',methods=['GET'])
 def returnCar():
+    """Handles requests for list of car details of a specific car."""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password')),
@@ -39,9 +41,10 @@ def returnCar():
         print("Not Authenticated")
         return "Not Authenticated"
 
-#Used when agent pi authentication. Must verify username & password then also verify if said user has booked the vehicle.
+
 @api.route('/api/findBooking',methods=['GET'])
 def findBooking():
+    """Used when agent pi authentication. Must verify username & password then also verify if said user has booked the vehicle."""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password')),
@@ -58,9 +61,10 @@ def findBooking():
     else:
         return "Not Authenticated"
 
-#Used for agent pi authentication but with facial recognition.
+
 @api.route('/api/findBooking2',methods=['GET'])
 def findBooking2():
+    """Used for agent pi authentication but with facial recognition."""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password')),
@@ -76,10 +80,11 @@ def findBooking2():
     else:
         return "Not Authenticated"
 
-#Updates the database when user cancels a booking. Booking attribute "status" 
-#is updated to cancelled and car attribute "available" is set to 1which means available
+
 @api.route('/api/cancelBooking',methods=['PUT'])
 def cancel():
+    """Updates the database when user cancels a booking. Booking attribute "status" 
+    updated to cancelled and car attribute "available" is set to 1which means available"""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password')),
@@ -94,9 +99,10 @@ def cancel():
     else:
         return "Not Authenticated"
         
-#Returns a list of bookings made by a specific user
+
 @api.route('/api/bookingHistory',methods=['GET'])
 def history():
+    """Returns a list of bookings made by a specific user"""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password'))
@@ -115,9 +121,10 @@ def history():
     else:
         return "Not Authenticated"
     
-#Adds a user to the database
+
 @api.route('/api/register',methods=['POST'])
 def register():
+    """Adds a user to the database"""
     prams = [
         request.args.get('type'),
         request.args.get('username'),
@@ -134,9 +141,10 @@ def register():
 
     return "Registration Error"
 
-#Checks if credentials sent are found in the database
+
 @api.route('/api/login',methods=['GET'])
 def login():
+    """Checks if credentials sent are found in the database"""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password'))
@@ -149,9 +157,10 @@ def login():
 
     return "No Such User"
 
-#Returns a list of all available vehicles. Can be used without authenticating
+
 @api.route('/api/availableCars',methods=['GET'])
 def getAvailableCars():
+    """Returns a list of all available vehicles. Can be used without authenticating"""
     results = db.availableVehicles()
 
     for x in results:
@@ -163,17 +172,19 @@ def getAvailableCars():
 
     return str(results)
 
-#Returns the attributes of a specific car
+
 @api.route('/api/carDetails',methods=['GET'])
 def getCar():
+    """Returns the attributes of a specific car"""
     prams = [
         request.args.get('carid')
     ] 
     return str(db.getVehicle())
 
-#Adds a new row to the bookings table and updates the car thats has been booked to unavailable
+
 @api.route('/api/book',methods=['POST'])
 def bookVehicle():
+    """Adds a new row to the bookings table and updates the car thats has been booked to unavailable"""
     prams = [
         request.args.get('username'),
         encrypt(request.args.get('password')),
@@ -190,19 +201,9 @@ def bookVehicle():
         return "Not Authenticated"
 
 
-
-
-
-
-
-
-
-
-
-
-#For Demo Purposes
 @api.route('/api/populateCars',methods=['GET'])
 def populateCarsTable():
+    """For Demo Purposes"""
     car1 = [
         "Toyota",
         "Sedan",

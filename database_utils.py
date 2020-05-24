@@ -92,7 +92,6 @@ class DatabaseUtils:
             cursor.execute("insert into bookings (userid,carid,status,date) values (%s,%s,%s,%s)", 
             (prams[2],prams[3],"active",date.today()))
             self.connection.commit()
-        #To Do: Validation Check
         return "Successful"
 
     def bookingHistory(self,prams):
@@ -107,47 +106,4 @@ class DatabaseUtils:
             cursor.execute("Update cars set available = 1 where carid = %s", [carid])
             cursor.execute("Update bookings set status = 'cancelled' where bookingid = %s",[prams[2]])
             self.connection.commit()
-        #To Do: Validation Check
         return "Successful"
-
-    def createDatabase(self):
-        print("testingggggg")
-        with self.connection.cursor() as cursor:
-            cursor.execute("""
-                CREATE TABLE if not exists users (
-                    userid    bigint NOT NULL AUTO_INCREMENT ,
-                    type      varchar(45) NOT NULL ,
-                    username  varchar(45) NOT NULL ,
-                    password  char(64) NOT NULL ,
-                    firstname varchar(45) NOT NULL ,
-                    lastname  varchar(45) NOT NULL ,
-                    email     varchar(320) NOT NULL ,
-                    PRIMARY KEY (userid)
-                )""")
-            cursor.execute("""
-                CREATE TABLE if not exists cars (
-                    carid     bigint NOT NULL ,
-                    make      varchar(45) NOT NULL ,
-                    bodytype  varchar(45) NOT NULL ,
-                    colour    varchar(45) NOT NULL ,
-                    seats     smallint NOT NULL ,
-                    latitude  decimal(10,8) NULL ,
-                    longitude decimal(11,8) NULL ,
-                    cost      smallint NOT NULL ,
-                    available tinyint(1) NOT NULL ,
-                    PRIMARY KEY (carid)
-                )""")
-            cursor.execute("""
-                CREATE TABLE if not exists bookings (
-                    bookingid bigint NOT NULL AUTO_INCREMENT ,
-                    userid bigint NOT NULL ,
-                    carid  bigint NOT NULL ,
-                    status varchar(45) NOT NULL ,
-                    date date NOT NULL ,
-                    PRIMARY KEY (bookingid),
-                    KEY fkIdx_23 (userid),
-                    CONSTRAINT FK_23 FOREIGN KEY fkIdx_23 (userid) REFERENCES users (userid),
-                    KEY fkIdx_27 (carid),
-                    CONSTRAINT FK_27 FOREIGN KEY fkIdx_27 (carid) REFERENCES cars (carid)
-                )""")
-        self.connection.commit()

@@ -201,8 +201,6 @@ def bookVehicle():
 
 
 #For Demo Purposes
-#Location parameters left at null
-#Need to implement Google MAP API
 @api.route('/api/populateCars',methods=['GET'])
 def populateCarsTable():
     car1 = [

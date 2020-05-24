@@ -28,7 +28,6 @@ def sitelogin():
 
     return response.text
 
-#For Demo and Testing
 @site.route('/populate')
 def populate():
     response = requests.get((url+"api/populateCars"))

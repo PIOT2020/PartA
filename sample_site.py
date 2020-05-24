@@ -2,7 +2,7 @@ from flask import Flask,Blueprint
 import requests
 
 site = Blueprint("site", __name__)
-url = "http://192.168.1.126:5000/"
+url = "http://220.244.177.218:5000/"
 
 
 @site.route('/register')

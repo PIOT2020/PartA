@@ -4,6 +4,7 @@ from database_utils import DatabaseUtils
 import MySQLdb
 from passlib.hash import sha256_crypt
 
+#Used for encrypting paswords before storing them to the database.
 def encrypt(password):
     hashedPassword = sha256_crypt.using(salt="salting").hash(password)
     print(hashedPassword)
@@ -14,6 +15,7 @@ def encrypt(password):
 api = Blueprint("api", __name__)
 db = DatabaseUtils()
 
+#Handles requests for list of car details of a specific car.
 @api.route('/api/returnCar',methods=['GET'])
 def returnCar():
     prams = [
@@ -37,6 +39,7 @@ def returnCar():
         print("Not Authenticated")
         return "Not Authenticated"
 
+#Used when agent pi authentication. Must verify username & password then also verify if said user has booked the vehicle.
 @api.route('/api/findBooking',methods=['GET'])
 def findBooking():
     prams = [
@@ -55,6 +58,7 @@ def findBooking():
     else:
         return "Not Authenticated"
 
+#Used for agent pi authentication but with facial recognition.
 @api.route('/api/findBooking2',methods=['GET'])
 def findBooking2():
     prams = [
@@ -72,6 +76,8 @@ def findBooking2():
     else:
         return "Not Authenticated"
 
+#Updates the database when user cancels a booking. Booking attribute "status" 
+#is updated to cancelled and car attribute "available" is set to 1which means available
 @api.route('/api/cancelBooking',methods=['PUT'])
 def cancel():
     prams = [
@@ -87,7 +93,8 @@ def cancel():
         return db.cancelBooking(prams)
     else:
         return "Not Authenticated"
-
+        
+#Returns a list of bookings made by a specific user
 @api.route('/api/bookingHistory',methods=['GET'])
 def history():
     prams = [
@@ -108,7 +115,7 @@ def history():
     else:
         return "Not Authenticated"
     
-
+#Adds a user to the database
 @api.route('/api/register',methods=['POST'])
 def register():
     prams = [
@@ -127,6 +134,7 @@ def register():
 
     return "Registration Error"
 
+#Checks if credentials sent are found in the database
 @api.route('/api/login',methods=['GET'])
 def login():
     prams = [
@@ -141,6 +149,7 @@ def login():
 
     return "No Such User"
 
+#Returns a list of all available vehicles. Can be used without authenticating
 @api.route('/api/availableCars',methods=['GET'])
 def getAvailableCars():
     results = db.availableVehicles()
@@ -154,7 +163,7 @@ def getAvailableCars():
 
     return str(results)
 
-
+#Returns the attributes of a specific car
 @api.route('/api/carDetails',methods=['GET'])
 def getCar():
     prams = [
@@ -162,6 +171,7 @@ def getCar():
     ] 
     return str(db.getVehicle())
 
+#Adds a new row to the bookings table and updates the car thats has been booked to unavailable
 @api.route('/api/book',methods=['POST'])
 def bookVehicle():
     prams = [

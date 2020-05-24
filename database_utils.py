@@ -2,6 +2,8 @@ import MySQLdb
 import MySQLdb.cursors
 from datetime import date
 
+
+#Handles the SQL queries needed for each API request.
 class DatabaseUtils:
     HOST = "35.244.78.82"
     USER = "root"
@@ -33,16 +35,13 @@ class DatabaseUtils:
             cursor.execute("Update bookings set status = 'completed' where userid = %s && carid = %s && status = 'active'", ([prams[2]],[prams[3]]))
             cursor.execute("Update cars set available = 1 where carid = %s", [prams[3]])
             self.connection.commit()
-        #To Do: Validation Check
         return True
 
-    #Add check if booking is open
     def findBooking(self,prams):
         with self.connection.cursor() as cursor:
-            cursor.execute("select count(*) from bookings where userid = %s && carid = %s", ([prams[2]],[prams[3]]))
+            cursor.execute("select count(*) from bookings where userid = %s && carid = %s && status = 'active'", ([prams[2]],[prams[3]]))
             return cursor.fetchone()[0] >= 1
 
-    #Need to implement checking of taken username and email
     def registerUser(self,prams):
         with self.connection.cursor() as cursor:
             cursor.execute("insert into users (type,username,password,firstname,lastname, email) values (%s,%s,%s,%s,%s,%s)", 
